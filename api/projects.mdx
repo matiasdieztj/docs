@@ -1,7 +1,7 @@
 ---
 title: "Projects API: Create and Manage Projects Programmatically"
 sidebarTitle: "Projects"
-description: "REST API reference for Punto Diez projects. Covers GET, POST, PUT, and DELETE endpoints with request and response examples."
+description: "REST API reference for Punto Diez projects. Create, retrieve, update, and delete projects with full request parameters and response examples."
 ---
 
 The Projects API lets you create, retrieve, update, and delete projects inside any workspace your API key has access to. Use it to automate project setup, sync project data to external systems, or build custom dashboards that surface real-time project status.
@@ -196,6 +196,37 @@ Returns the newly created project object with HTTP `201 Created`.
 }
 ```
 
+<ResponseField name="data" type="object">
+  The newly created project object.
+
+  <Expandable title="Created project object fields">
+    <ResponseField name="id" type="string">
+      Unique identifier for the project.
+    </ResponseField>
+    <ResponseField name="name" type="string">
+      Display name of the project.
+    </ResponseField>
+    <ResponseField name="description" type="string">
+      Optional description of the project's purpose or goals.
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      Initial status of the project. Always `active` on creation.
+    </ResponseField>
+    <ResponseField name="due_date" type="string">
+      Target completion date in `YYYY-MM-DD` format, if provided.
+    </ResponseField>
+    <ResponseField name="view" type="string">
+      Default view for the project. One of `list`, `board`, or `timeline`.
+    </ResponseField>
+    <ResponseField name="created_at" type="string">
+      ISO 8601 timestamp for when the project was created.
+    </ResponseField>
+    <ResponseField name="updated_at" type="string">
+      ISO 8601 timestamp for when the project was last updated.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
 ---
 
 ## GET /projects/{id}
@@ -343,6 +374,60 @@ console.log(data);
 </ParamField>
 
 The response returns the full updated project object with HTTP `200 OK`.
+
+```json
+{
+  "data": {
+    "id": "proj_abc123",
+    "name": "Q3 Launch Campaign",
+    "description": "Q3 go-to-market campaign.",
+    "status": "active",
+    "due_date": "2024-10-15",
+    "view": "timeline",
+    "task_count": 34,
+    "progress_percent": 62,
+    "created_at": "2024-06-10T12:00:00Z",
+    "updated_at": "2024-06-18T09:15:00Z"
+  }
+}
+```
+
+<ResponseField name="data" type="object">
+  The full updated project object, including all fields from the original project with your changes applied.
+
+  <Expandable title="Updated project object fields">
+    <ResponseField name="id" type="string">
+      Unique identifier for the project.
+    </ResponseField>
+    <ResponseField name="name" type="string">
+      Updated display name of the project.
+    </ResponseField>
+    <ResponseField name="description" type="string">
+      Updated description of the project's purpose or goals.
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      Current status of the project. Either `active` or `archived`.
+    </ResponseField>
+    <ResponseField name="due_date" type="string">
+      Updated target completion date in `YYYY-MM-DD` format.
+    </ResponseField>
+    <ResponseField name="view" type="string">
+      Updated default view. One of `list`, `board`, or `timeline`.
+    </ResponseField>
+    <ResponseField name="task_count" type="integer">
+      Total number of tasks in the project, across all statuses.
+    </ResponseField>
+    <ResponseField name="progress_percent" type="integer">
+      Percentage of completed tasks out of the total task count, from `0` to `100`.
+    </ResponseField>
+    <ResponseField name="created_at" type="string">
+      ISO 8601 timestamp for when the project was originally created.
+    </ResponseField>
+    <ResponseField name="updated_at" type="string">
+      ISO 8601 timestamp for when the project was last updated.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
 
 ---
 

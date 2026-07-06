@@ -1,7 +1,7 @@
 ---
-title: "Users API: Manage Team Members Programmatically"
+title: "Users API: Manage Workspace Members Programmatically"
 sidebarTitle: "Users"
-description: "REST API reference for Punto Diez users. Retrieve user profiles, list workspace members, and update user information."
+description: "REST API reference for Punto Diez users. List workspace members, retrieve profiles, invite new users, and update roles via the API."
 ---
 
 The Users API lets you list and retrieve workspace members, invite new users, and update roles — all programmatically. Use it to automate onboarding flows, sync team data to external systems, or build internal admin tools on top of your Punto Diez workspace.
@@ -234,6 +234,28 @@ Returns the invited user object with HTTP `201 Created`. The `status` field will
 }
 ```
 
+<ResponseField name="data" type="object">
+  The newly created (pending) user object.
+
+  <Expandable title="Invited user object fields">
+    <ResponseField name="id" type="string">
+      Unique identifier assigned to the invited user.
+    </ResponseField>
+    <ResponseField name="email" type="string">
+      The email address the invitation was sent to.
+    </ResponseField>
+    <ResponseField name="role" type="string">
+      The role assigned to the user upon joining. One of `admin`, `member`, or `guest`.
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      Invitation status. Always `pending` until the user accepts the invitation.
+    </ResponseField>
+    <ResponseField name="joined_at" type="string | null">
+      ISO 8601 timestamp for when the user joined. `null` until the invitation is accepted.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
 ---
 
 ## PUT /users/{id}
@@ -280,3 +302,20 @@ console.log(data);
 </ParamField>
 
 The response returns the full updated user object with HTTP `200 OK`.
+
+```json
+{
+  "data": {
+    "id": "usr_002",
+    "name": "Marco Reyes",
+    "email": "marco@example.com",
+    "role": "admin",
+    "avatar_url": "https://cdn.puntodiez.com/avatars/usr_002.png",
+    "joined_at": "2024-01-15T09:30:00Z"
+  }
+}
+```
+
+<ResponseField name="data" type="object">
+  The full updated user profile object containing `id`, `name`, `email`, `role`, `avatar_url`, and `joined_at`.
+</ResponseField>

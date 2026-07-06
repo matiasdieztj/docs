@@ -1,7 +1,7 @@
 ---
 title: "Webhooks API: Receive Real-Time Event Notifications"
 sidebarTitle: "Webhooks"
-description: "Set up and manage Punto Diez webhooks to receive HTTP callbacks when projects, tasks, or team events occur in your workspace."
+description: "Set up and manage Punto Diez webhooks to receive real-time HTTP callbacks when projects, tasks, or team member events occur in your workspace."
 ---
 
 Webhooks let you subscribe to events in your Punto Diez workspace so that your external systems are notified the moment something changes — without polling the API. When an event fires, Punto Diez sends an HTTP `POST` request with a JSON payload to the URL you register. Use webhooks to trigger automations, keep data in sync, or build real-time dashboards.
@@ -206,6 +206,31 @@ console.log(data);
   ]
 }
 ```
+
+<ResponseField name="data" type="array">
+  Array of webhook objects registered in the workspace.
+
+  <Expandable title="Webhook object fields">
+    <ResponseField name="id" type="string">
+      Unique identifier for the webhook.
+    </ResponseField>
+    <ResponseField name="url" type="string">
+      The endpoint URL that receives event deliveries.
+    </ResponseField>
+    <ResponseField name="events" type="array">
+      The list of event names this webhook is subscribed to.
+    </ResponseField>
+    <ResponseField name="workspace_id" type="string">
+      The workspace this webhook belongs to.
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      Current status of the webhook. `active` means deliveries are enabled.
+    </ResponseField>
+    <ResponseField name="created_at" type="string">
+      ISO 8601 timestamp for when the webhook was created.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
 
 ---
 
