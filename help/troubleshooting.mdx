@@ -1,0 +1,121 @@
+---
+title: "Troubleshoot Common Punto Diez Issues"
+sidebarTitle: "Troubleshooting"
+description: "Diagnose and fix common issues in Punto Diez including login problems, sync errors, notification failures, and integration issues."
+---
+
+Most issues in Punto Diez can be resolved quickly with a few targeted steps. This guide walks you through the most common problems our users encounter, organized by category. Work through the relevant section and follow the steps in order — the fix is usually simpler than it looks.
+
+---
+
+## Login & Account Issues
+
+### I can't log in
+
+If you're unable to access your account, try the following steps:
+
+1. **Check your email and password** — Make sure you're using the email address associated with your Punto Diez account. Passwords are case-sensitive.
+2. **Reset your password** — Go to the login page and click **Forgot password?**. Enter your email and follow the link in the reset email.
+3. **Check your account verification status** — If you recently signed up, look for a verification email in your inbox. Your account must be verified before you can log in. If you didn't receive it, see the section below.
+4. **Clear your browser cache** — Outdated session data can sometimes block login. Try clearing cookies and cache, or open an incognito/private window.
+5. **Try a different browser or device** — This helps rule out a local browser configuration issue.
+
+<Tip>
+  If you use Google or SSO to sign in, make sure you're clicking **Continue with Google** (or your SSO provider) rather than entering a password manually.
+</Tip>
+
+### I'm not receiving my verification email
+
+If you signed up but haven't received the verification email:
+
+1. **Check your spam or junk folder** — Automated emails from `no-reply@puntodiez.com` are occasionally filtered.
+2. **Add our address to your safe senders list** — Allowlisting `@puntodiez.com` ensures future emails reach your inbox.
+3. **Resend the verification email** — Return to the Punto Diez login page, click **Resend verification email**, and enter your email address.
+4. **Try a different email address** — If the problem persists, sign up using a different email provider to rule out a delivery block.
+
+---
+
+## Sync & Data Issues
+
+### My tasks are not syncing
+
+If changes you make aren't appearing for other team members — or aren't reflecting across your own devices — try these steps:
+
+1. **Refresh the page** — Press `Ctrl + R` (Windows/Linux) or `Cmd + R` (Mac) to force a fresh load.
+2. **Check your internet connection** — Punto Diez requires a stable connection to sync in real time. Try loading another website to confirm connectivity.
+3. **Sign out and sign back in** — This forces a fresh session and re-establishes the sync connection. Go to **Profile → Sign Out**, then log back in.
+4. **Check for platform status updates** — Visit [status.puntodiez.com](https://status.puntodiez.com) to see if there is an active incident affecting sync.
+
+<Note>
+  Sync issues affecting your entire team at once are almost always caused by a platform incident. Check the status page before spending time on local troubleshooting.
+</Note>
+
+### I lost data after a refresh
+
+Punto Diez **auto-saves all changes as you make them** — there is no manual save button. If something appears to be missing after a page refresh, it was almost certainly saved.
+
+To verify:
+
+1. **Check the Activity Log** — Open the affected project or task, click the **Activity** tab on the right-hand panel, and review the history of all changes. You can see exactly what was updated, when, and by whom.
+2. **Check the Trash** — If a task or project seems to have disappeared, it may have been deleted. Go to **Settings → Data → Trash** to browse recently deleted items and restore them if needed.
+3. **Check filters** — If you're viewing a project board or list, make sure an active filter isn't hiding the tasks you expect to see.
+
+---
+
+## Notification Issues
+
+### I'm not receiving email notifications
+
+If you're missing email alerts for task assignments, comments, or due date reminders:
+
+1. **Check your notification settings** — Go to **Settings → Notifications** and make sure email notifications are enabled for the event types you expect.
+2. **Check your spam folder** — Notification emails from `notifications@puntodiez.com` may be filtered. Add this address to your safe senders list.
+3. **Verify your email address** — Go to **Profile → Account** and confirm that your email address is correct and verified.
+4. **Check project-level notification overrides** — Individual projects can mute notifications. Open the project, click the **bell icon** in the top-right, and confirm notifications are active.
+
+### Too many notifications
+
+If you're receiving more notifications than you need, you have several ways to reduce the volume:
+
+- **Adjust notification frequency** — Go to **Settings → Notifications → Digest** and switch from real-time notifications to a daily or weekly digest email.
+- **Disable specific event types** — In **Settings → Notifications**, uncheck the event categories you don't need (e.g., comments on tasks you're not assigned to).
+- **Mute specific projects** — Open a project, click the **bell icon**, and select **Mute**. You will stop receiving notifications for that project until you unmute it.
+
+---
+
+## Integration Issues
+
+### My Slack integration stopped working
+
+Slack integrations can disconnect if your Slack workspace permissions change or if the token expires. To reconnect:
+
+1. Go to **Settings → Integrations → Slack**.
+2. Click **Disconnect** to remove the existing connection.
+3. Click **Connect Slack** and follow the OAuth prompts to re-authorize Punto Diez.
+4. Reconfigure your notification channels and trigger settings once the connection is restored.
+
+<Tip>
+  If you're a Slack admin, make sure the Punto Diez app is still approved in your Slack workspace's app management settings at **Slack Admin → Manage Apps**.
+</Tip>
+
+### GitHub issues aren't linking
+
+If GitHub issues are not linking to your Punto Diez tasks, the most common cause is missing repository permissions:
+
+1. Go to **Settings → Integrations → GitHub**.
+2. Click **Manage Permissions** to review which repositories Punto Diez has access to.
+3. If the target repository is not listed, click **Edit Installation** — this opens GitHub's settings page for the Punto Diez app.
+4. Under **Repository access**, select **All repositories** or manually add the specific repo.
+5. Click **Save** in GitHub and return to Punto Diez. New issue links should start appearing within a few minutes.
+
+<Note>
+  You must be a GitHub organization owner or have admin rights on the repository to modify the app's permissions.
+</Note>
+
+---
+
+Still stuck? Reach out to us directly and we'll get it sorted.
+
+<Card title="Contact Support" icon="headset" href="mailto:support@puntodiez.com">
+  Our support team is available Monday through Friday. Pro and Enterprise customers receive priority responses. Email us at **support@puntodiez.com** and we'll get back to you as quickly as possible.
+</Card>

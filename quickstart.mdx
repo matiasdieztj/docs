@@ -1,47 +1,50 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Punto Diez in Minutes"
+sidebarTitle: "Quickstart"
+description: "Learn how to create your account, set up a workspace, and launch your first project in Punto Diez in under 5 minutes."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
-
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+This guide walks you through everything you need to go from zero to a fully running project in Punto Diez. By the end, you'll have an account, a workspace, your first project, and your team on board — all in just a few minutes.
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Create your account">
+    Go to [puntodiez.com/signup](https://puntodiez.com/signup) and fill in your name, email address, and a secure password.
 
-    ```bash
-    npm install your-package
-    ```
+    After submitting the form, check your inbox for a verification email. Click the confirmation link to activate your account and proceed to your dashboard.
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
+  <Step title="Create your first workspace">
+    Once you're logged in, you'll be prompted to create a workspace. Enter a name for it — this is usually your company or team name.
 
-    ```bash
-    your-cli init
-    ```
+    Select the plan that fits your needs. You can start with the free plan and upgrade at any time from **Settings → Billing**.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
+  <Step title="Add your first project">
+    From the workspace dashboard, click **New Project**. Fill in the project title and an optional description so your team understands its purpose.
 
-    ```bash
-    your-cli start
-    ```
+    Set a start date and due date if relevant, then click **Create Project**. Your project is live and ready for tasks.
+  </Step>
+  <Step title="Invite your team">
+    Navigate to **Settings → Team** and click **Invite Members**. Enter your teammates' email addresses and assign each one a role — Admin, Member, or Viewer.
+
+    Each invitee receives an email with a link to join your workspace. They'll be active collaborators as soon as they accept.
+  </Step>
+  <Step title="Connect an integration (optional)">
+    To connect an external tool, go to **Settings → Integrations**, browse the available integrations, and click **Connect** next to the service you want to use.
+
+    Follow the authorization steps to link your account. Once connected, the integration is available across all projects in your workspace.
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## Make Your First API Call
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
+Once your account is set up, you can interact with Punto Diez programmatically using the REST API. The example below fetches all projects in your workspace.
+
+```bash
+curl -X GET https://api.puntodiez.com/v1/projects \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+Replace `YOUR_API_KEY` with your actual key. The response returns a JSON array of your workspace's projects.
+
+<Tip>
+  Find your API key in **Settings → API Keys**. You can generate multiple keys for different environments or integrations and revoke them individually at any time.
 </Tip>

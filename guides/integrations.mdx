@@ -1,0 +1,59 @@
+---
+title: "Connect Third-Party Tools to Punto Diez"
+sidebarTitle: "Integrations"
+description: "Set up integrations with Slack, GitHub, Google Calendar, and other tools to bring your workflow into Punto Diez."
+---
+
+Punto Diez is built to work alongside the tools your team already relies on. By connecting third-party apps, you can surface task updates in Slack, link pull requests directly to tasks, sync due dates with your calendar, and automate repetitive handoffs — all without leaving your workflow. This guide covers the available integrations and how to set them up.
+
+## Available Integrations
+
+<CardGroup cols={2}>
+  <Card title="Slack" icon="slack">
+    Receive real-time project and task notifications in any Slack channel. Get alerts when tasks are assigned, statuses change, or teammates leave comments.
+  </Card>
+  <Card title="GitHub" icon="github">
+    Link pull requests and issues directly to Punto Diez tasks. Track development progress alongside project milestones without switching between tools.
+  </Card>
+  <Card title="Google Calendar" icon="calendar">
+    Sync task due dates to your Google Calendar automatically. Any due date you set in Punto Diez will appear as a calendar event, keeping your schedule up to date.
+  </Card>
+  <Card title="Zapier" icon="bolt">
+    Connect Punto Diez to 5,000+ apps through Zapier's no-code automation platform. Trigger actions in other tools when tasks are created, updated, or completed.
+  </Card>
+</CardGroup>
+
+## Setting Up an Integration
+
+<Steps>
+  <Step title="Go to Settings > Integrations">
+    Click your workspace avatar in the bottom-left corner, then navigate to **Settings** → **Integrations**. You'll see a list of all available integrations and their current connection status.
+  </Step>
+  <Step title="Select the integration">
+    Click the integration you want to enable. A detail panel will open with a description of what the integration does and which permissions it requires.
+  </Step>
+  <Step title="Complete the OAuth flow">
+    Click **Connect** and follow the OAuth authorization prompts in the pop-up window. Grant Punto Diez the requested permissions in the third-party app. Once authorized, you'll be redirected back to Punto Diez automatically.
+  </Step>
+  <Step title="Configure sync settings">
+    After connecting, choose which events to sync. For example, with Slack you can select which channels receive notifications and which event types (assignments, comments, status changes) trigger a message. With GitHub, map specific repositories to projects. Save your configuration when done.
+  </Step>
+</Steps>
+
+## Managing Integrations
+
+Once an integration is active, you can review and adjust it at any time from **Settings** → **Integrations**.
+
+- **View connected apps** — Active integrations display a green **Connected** badge alongside the connection date and the account used to authenticate.
+- **Edit sync settings** — Click **Configure** next to any active integration to update which events sync, change channel mappings, or adjust notification frequency.
+- **Revoke access** — Click **Disconnect** to remove an integration. Punto Diez will immediately stop syncing data and delete the stored access token. This does not delete any historical data already synced.
+
+<Note>
+  Integration availability depends on your plan. Slack and Google Calendar are available on all paid plans. GitHub and Zapier integrations require a **Pro** or **Enterprise** subscription. See the [Billing page](/configuration/billing) for a full plan breakdown.
+</Note>
+
+## Custom Integrations via Webhooks
+
+If you need to connect a tool that isn't listed above, Punto Diez supports outbound webhooks that fire on any project or task event. You can use webhooks to push data to your own internal systems, custom Slack bots, data warehouses, or any service that accepts HTTP POST requests.
+
+To get started with webhooks, visit the [Webhooks API reference](/api/webhooks) for full documentation on event payloads, authentication, and retry behavior.

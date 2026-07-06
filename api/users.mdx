@@ -1,0 +1,282 @@
+---
+title: "Users API: Manage Team Members Programmatically"
+sidebarTitle: "Users"
+description: "REST API reference for Punto Diez users. Retrieve user profiles, list workspace members, and update user information."
+---
+
+The Users API lets you list and retrieve workspace members, invite new users, and update roles — all programmatically. Use it to automate onboarding flows, sync team data to external systems, or build internal admin tools on top of your Punto Diez workspace.
+
+---
+
+## GET /users
+
+Retrieve a paginated list of all users in a workspace, with optional filtering by role.
+
+<CodeGroup>
+```bash curl
+curl -G https://api.puntodiez.com/v1/users \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d workspace_id=ws_123 \
+  -d role=admin \
+  -d page=1 \
+  -d per_page=20
+```
+
+```javascript JavaScript
+const params = new URLSearchParams({
+  workspace_id: 'ws_123',
+  role: 'admin',
+  page: '1',
+  per_page: '20',
+});
+
+const response = await fetch(`https://api.puntodiez.com/v1/users?${params}`, {
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+  },
+});
+
+const { data, meta } = await response.json();
+console.log(data);
+```
+</CodeGroup>
+
+### Query Parameters
+
+<ParamField query="workspace_id" type="string" required>
+  The ID of the workspace whose members you want to list.
+</ParamField>
+
+<ParamField query="role" type="string">
+  Filter results to users with a specific role. Accepted values: `owner`, `admin`, `member`, `guest`. Omit to return all roles.
+</ParamField>
+
+<ParamField query="page" type="integer">
+  Page number to retrieve. Defaults to `1`.
+</ParamField>
+
+<ParamField query="per_page" type="integer">
+  Number of users per page. Defaults to `20`, maximum `100`.
+</ParamField>
+
+### Response
+
+```json
+{
+  "data": [
+    {
+      "id": "usr_001",
+      "name": "Ana Torres",
+      "email": "ana@example.com",
+      "role": "owner",
+      "avatar_url": "https://cdn.puntodiez.com/avatars/usr_001.png",
+      "joined_at": "2023-11-01T08:00:00Z"
+    },
+    {
+      "id": "usr_002",
+      "name": "Marco Reyes",
+      "email": "marco@example.com",
+      "role": "admin",
+      "avatar_url": "https://cdn.puntodiez.com/avatars/usr_002.png",
+      "joined_at": "2024-01-15T09:30:00Z"
+    }
+  ],
+  "meta": {
+    "total": 18,
+    "page": 1,
+    "per_page": 20
+  }
+}
+```
+
+<ResponseField name="data" type="array">
+  Array of user objects.
+
+  <Expandable title="User object fields">
+    <ResponseField name="id" type="string">
+      Unique identifier for the user.
+    </ResponseField>
+    <ResponseField name="name" type="string">
+      Full display name of the user.
+    </ResponseField>
+    <ResponseField name="email" type="string">
+      Email address associated with the user's account.
+    </ResponseField>
+    <ResponseField name="role" type="string">
+      The user's role in the workspace. One of `owner`, `admin`, `member`, or `guest`.
+    </ResponseField>
+    <ResponseField name="avatar_url" type="string">
+      URL of the user's profile avatar image.
+    </ResponseField>
+    <ResponseField name="joined_at" type="string">
+      ISO 8601 timestamp for when the user joined the workspace.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+---
+
+## GET /users/{id}
+
+Retrieve the full profile for a single workspace member.
+
+<CodeGroup>
+```bash curl
+curl https://api.puntodiez.com/v1/users/usr_001 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.puntodiez.com/v1/users/usr_001', {
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+  },
+});
+
+const { data } = await response.json();
+console.log(data);
+```
+</CodeGroup>
+
+### Path Parameters
+
+<ParamField path="id" type="string" required>
+  The unique ID of the user to retrieve.
+</ParamField>
+
+### Response
+
+```json
+{
+  "data": {
+    "id": "usr_001",
+    "name": "Ana Torres",
+    "email": "ana@example.com",
+    "role": "owner",
+    "avatar_url": "https://cdn.puntodiez.com/avatars/usr_001.png",
+    "joined_at": "2023-11-01T08:00:00Z"
+  }
+}
+```
+
+<ResponseField name="data" type="object">
+  Full user profile object containing `id`, `name`, `email`, `role`, `avatar_url`, and `joined_at`.
+</ResponseField>
+
+---
+
+## POST /users
+
+Invite a new user to the workspace by email. If the email address doesn't already have a Punto Diez account, the invitation email will include a link to sign up.
+
+<Note>
+  Sending this request triggers an **email invitation** to the address you specify. The user's account won't be active until they accept the invitation and complete sign-up. Their status will be `pending` until then.
+</Note>
+
+<CodeGroup>
+```bash curl
+curl -X POST https://api.puntodiez.com/v1/users \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "lucia@example.com",
+    "role": "member",
+    "workspace_id": "ws_123"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.puntodiez.com/v1/users', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    email: 'lucia@example.com',
+    role: 'member',
+    workspace_id: 'ws_123',
+  }),
+});
+
+const { data } = await response.json();
+console.log(data);
+```
+</CodeGroup>
+
+### Body Parameters
+
+<ParamField body="email" type="string" required>
+  The email address of the person you want to invite.
+</ParamField>
+
+<ParamField body="role" type="string" required>
+  The role to assign to the invited user. Accepted values: `admin`, `member`, `guest`.
+</ParamField>
+
+<ParamField body="workspace_id" type="string" required>
+  The ID of the workspace the user is being invited to.
+</ParamField>
+
+### Response
+
+Returns the invited user object with HTTP `201 Created`. The `status` field will be `pending` until the invitation is accepted.
+
+```json
+{
+  "data": {
+    "id": "usr_099",
+    "email": "lucia@example.com",
+    "role": "member",
+    "status": "pending",
+    "joined_at": null
+  }
+}
+```
+
+---
+
+## PUT /users/{id}
+
+Update the role of an existing workspace member.
+
+<Note>
+  Only workspace **Owners** and **Admins** can update user roles. A `403 Forbidden` response is returned if your API key's associated user doesn't have sufficient permissions.
+</Note>
+
+<CodeGroup>
+```bash curl
+curl -X PUT https://api.puntodiez.com/v1/users/usr_002 \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"role": "admin"}'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.puntodiez.com/v1/users/usr_002', {
+  method: 'PUT',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ role: 'admin' }),
+});
+
+const { data } = await response.json();
+console.log(data);
+```
+</CodeGroup>
+
+### Path Parameters
+
+<ParamField path="id" type="string" required>
+  The unique ID of the user whose role you want to update.
+</ParamField>
+
+### Body Parameters
+
+<ParamField body="role" type="string" required>
+  The new role to assign to the user. Accepted values: `owner`, `admin`, `member`, `guest`.
+</ParamField>
+
+The response returns the full updated user object with HTTP `200 OK`.

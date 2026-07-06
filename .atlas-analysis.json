@@ -1,12 +1,11 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
+  "projectType": "saas",
+  "projectName": "Punto Diez",
+  "projectDescription": "Punto Diez is a platform that helps users manage, track, and optimize their workflows through an intuitive dashboard and powerful integrations.",
   "theme": "almond",
-  "name": "Punto Diez",
-  "colors": {
-    "primary": "#fc0404",
-    "light": "#fc7c7c"
-  },
-  "favicon": "https://media.brand.dev/b59c5e8b-9bf1-4e64-93e2-f33d66921643.png",
+  "primaryColor": "#fc0404",
+  "lightColor": "#fc7c7c",
+  "darkColor": null,
   "navigation": {
     "tabs": [
       {
@@ -76,14 +75,24 @@
       }
     ]
   },
-  "navbar": {
-    "primary": {
-      "type": "button",
-      "label": "Get Started",
-      "href": "https://puntodiez.com/signup"
-    }
-  },
-  "footer": {
-    "socials": {}
-  }
+  "keyFeatures": [
+    "Intuitive dashboard for managing projects and tasks",
+    "Team collaboration and workspace sharing",
+    "Third-party integrations and webhooks",
+    "Real-time notifications and activity tracking",
+    "Flexible billing and subscription management",
+    "RESTful API for custom integrations"
+  ],
+  "publicApiSurface": [
+    "GET /projects",
+    "POST /projects",
+    "GET /projects/{id}",
+    "PUT /projects/{id}",
+    "DELETE /projects/{id}",
+    "GET /users",
+    "POST /users",
+    "GET /users/{id}",
+    "POST /webhooks",
+    "DELETE /webhooks/{id}"
+  ]
 }

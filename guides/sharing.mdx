@@ -1,0 +1,77 @@
+---
+title: "Share Projects and Collaborate with Your Team"
+sidebarTitle: "Sharing"
+description: "Invite teammates, share projects with external guests, and control permissions in Punto Diez for secure collaboration."
+---
+
+Collaboration is at the heart of Punto Diez. Whether you're bringing a new hire onto your workspace, looping in an external stakeholder on a single project, or tightening up permissions for sensitive work, Punto Diez gives you the tools to control exactly who can see and do what. This guide walks you through every layer of sharing and access management.
+
+## Inviting Team Members
+
+Team members are people who belong to your workspace and can access projects based on their assigned role.
+
+<Steps>
+  <Step title="Go to Settings > Team">
+    Click your avatar in the bottom-left corner, select **Settings**, then click **Team** in the left-hand menu. You'll see a list of everyone currently in your workspace.
+  </Step>
+  <Step title="Click Invite Members">
+    Click the **Invite Members** button in the top-right corner of the Team page. An invitation dialog will open.
+  </Step>
+  <Step title="Enter email addresses">
+    Type the email address of the person you want to invite. You can add multiple addresses separated by commas to send bulk invitations at once.
+  </Step>
+  <Step title="Choose a role">
+    Select a role for each invitee:
+    - **Viewer** — can view projects and tasks but cannot make changes.
+    - **Commenter** — can view and leave comments on tasks.
+    - **Member** — can create and edit tasks across projects they have access to.
+    - **Admin** — has full access to all projects and workspace settings.
+  </Step>
+  <Step title="Send the invitation">
+    Click **Send Invites**. Each invitee will receive an email with a link to accept and join your workspace. Pending invitations are listed in the Team page until accepted.
+  </Step>
+</Steps>
+
+## Sharing a Project with Guests
+
+Guests are external collaborators — such as clients, contractors, or partners — who can access a single project without joining your full workspace.
+
+To share a project with a guest:
+
+1. Open the project and click the **Share** button in the top-right corner of the project view.
+2. Toggle **Enable shareable link** to generate a unique project link.
+3. Set the guest permission level:
+   - **View only** — the guest can browse tasks and details but cannot interact.
+   - **Can comment** — the guest can view all tasks and leave comments on them.
+4. Copy the link and share it directly with your guest.
+
+Guest links remain active until you revoke them. You can regenerate a new link at any time, which automatically invalidates the old one.
+
+## Project Permissions
+
+Workspace roles determine what each person can do within a project. The table below summarizes access levels:
+
+| Ability                        | Viewer | Commenter | Member | Admin |
+|-------------------------------|:------:|:---------:|:------:|:-----:|
+| View tasks and project details | ✅     | ✅        | ✅     | ✅    |
+| Leave comments on tasks        | ❌     | ✅        | ✅     | ✅    |
+| Create and edit tasks          | ❌     | ❌        | ✅     | ✅    |
+| Assign tasks and set priorities| ❌     | ❌        | ✅     | ✅    |
+| Manage project settings        | ❌     | ❌        | ❌     | ✅    |
+| Invite or remove members       | ❌     | ❌        | ❌     | ✅    |
+
+Admins can also override these defaults at the project level by opening **Project Settings** → **Permissions** and adjusting access for specific members.
+
+## Revoking Access
+
+**Removing a team member** — To remove someone from your workspace, go to **Settings** → **Team**, click the `···` menu next to the person's name, and select **Remove from Workspace**. They will lose access immediately and will no longer appear in assignee or mention dropdowns.
+
+**Revoking a guest link** — Open the project, click **Share**, and toggle **Enable shareable link** off. The link is invalidated instantly. Anyone who tries to open the old link will see an access-denied message.
+
+<Warning>
+  Revoking a guest link does not delete or hide any content the guest has already viewed or exported. If a guest copied task details, comments, or attachments before access was revoked, that information remains in their possession. Treat shared content as potentially retained once it has been accessed.
+</Warning>
+
+<Info>
+  Guest access is available on the **Pro** and **Enterprise** plans only. If you're on the Free plan and need to collaborate with external stakeholders, consider upgrading your plan or inviting them as full workspace members. Visit the [Billing page](/configuration/billing) to compare plans.
+</Info>

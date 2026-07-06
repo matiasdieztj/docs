@@ -1,0 +1,90 @@
+---
+title: "Configure Your Punto Diez Workspace Settings"
+sidebarTitle: "Settings"
+description: "Customize workspace settings in Punto Diez including name, branding, default views, time zones, and language preferences."
+---
+
+Your workspace settings are the control center for how Punto Diez looks, feels, and behaves for everyone on your team. From updating your workspace name and logo to setting the default project view and managing your data, everything you need to tailor the platform to your organization lives here. Navigate to **Settings** from the left sidebar to get started.
+
+## General Settings
+
+General settings let you define the core identity of your workspace. Changes you make here apply across the entire workspace and are visible to all members.
+
+| Setting | Description |
+|---|---|
+| **Workspace Name** | The display name shown in the header and across all member dashboards. |
+| **Description** | A short summary of your workspace's purpose, visible on the workspace selector screen. |
+| **URL Slug** | The unique identifier used in your workspace URL (e.g., `app.puntodiez.com/your-slug`). |
+| **Logo** | Upload a PNG or JPG image (recommended size: 256×256 px) to brand your workspace. |
+| **Default Timezone** | Sets the timezone used for due dates, reminders, and scheduled reports across the workspace. |
+
+To update any of these fields, navigate to **Settings → General**, make your changes, and click **Save Changes**.
+
+<Tip>
+  Keep your URL slug short and memorable — it appears in every shared link you send to collaborators.
+</Tip>
+
+## Default Views
+
+Default views control how new projects are displayed when a team member opens them for the first time. Every member can override this preference individually, but the workspace default ensures a consistent starting experience.
+
+Punto Diez supports three project views:
+
+- **List** — A structured, linear view ideal for task-heavy projects and prioritization.
+- **Board** — A Kanban-style view best suited for tracking work across stages.
+- **Timeline** — A Gantt-style view for planning and visualizing project schedules.
+
+To change the default view, go to **Settings → General → Default Project View**, select your preferred layout, and click **Save Changes**.
+
+## Language & Localization
+
+You can set the display language for your workspace interface. This affects menu labels, system messages, date formats, and other UI text for all members who have not set a personal language preference.
+
+Punto Diez currently supports the following languages:
+
+- 🇺🇸 English
+- 🇪🇸 Spanish
+- 🇫🇷 French
+- 🇩🇪 German
+- 🇧🇷 Portuguese
+
+To update the workspace language, navigate to **Settings → Localization**, choose your language from the dropdown, and click **Save**.
+
+<Note>
+  Individual members can override the workspace language from their own **Profile → Preferences** settings. The workspace setting only applies as the default for members who have not made a personal selection.
+</Note>
+
+## Data & Privacy
+
+Punto Diez gives you full control over your workspace data, including how long it is retained and how you can export or delete it.
+
+### Data Retention
+
+By default, deleted tasks and projects are kept in the trash for **30 days** before being permanently removed. You can adjust this retention window from **Settings → Data → Retention Policy** to anywhere between 7 and 90 days.
+
+### Exporting Your Workspace Data
+
+You can export a full snapshot of your workspace data at any time in either JSON or CSV format.
+
+<Steps>
+  <Step title="Open Data Settings">
+    Go to **Settings → Data → Export**.
+  </Step>
+  <Step title="Select a Format">
+    Choose either **JSON** (full structured data, ideal for migrations) or **CSV** (spreadsheet-friendly, ideal for reporting).
+  </Step>
+  <Step title="Request the Export">
+    Click **Export**. Punto Diez will begin preparing your data package in the background.
+  </Step>
+  <Step title="Download Your File">
+    Once the export is ready, you will receive an email with a secure download link. The link is valid for **48 hours**.
+  </Step>
+</Steps>
+
+### Deleting Your Workspace
+
+If you need to permanently delete your workspace, navigate to **Settings → Data → Delete Workspace**. You will be asked to type your workspace name to confirm the action.
+
+<Warning>
+  Deleting your workspace is **permanent and irreversible**. All projects, tasks, members, integrations, and data will be destroyed immediately. There is no recovery option after deletion is confirmed. Export your data before proceeding.
+</Warning>

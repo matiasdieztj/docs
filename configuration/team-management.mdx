@@ -1,0 +1,92 @@
+---
+title: "Manage Your Team Members and Roles in Punto Diez"
+sidebarTitle: "Team Management"
+description: "Add, remove, and manage team members in Punto Diez. Assign roles, handle invitations, and organize members across workspaces."
+---
+
+Your team is the foundation of everything you build in Punto Diez. The Team Management section gives workspace Owners and Admins full control over who has access, what they can do, and how they are organized. Whether you're onboarding new colleagues, adjusting permissions, or cleaning up inactive accounts, all of those actions live in one place.
+
+## Viewing Your Team
+
+To see everyone in your workspace, navigate to **Settings → Team**. The team list shows each member's name, email address, assigned role, and current invitation status.
+
+- **Active** — The member has accepted their invitation and can access the workspace.
+- **Pending** — An invitation has been sent but not yet accepted.
+- **Deactivated** — The member has been removed but their task history is preserved.
+
+You can sort the list by name, role, or join date using the column headers, and use the search bar at the top to quickly locate a specific member.
+
+## Inviting Members
+
+<Steps>
+  <Step title="Open the Invite Dialog">
+    Go to **Settings → Team** and click **Invite Members** in the top-right corner.
+  </Step>
+  <Step title="Enter Email Addresses">
+    Type one or more email addresses in the input field. To invite multiple people at once, separate each address with a comma (e.g., `alice@company.com, bob@company.com`).
+  </Step>
+  <Step title="Select a Role">
+    Choose the appropriate role for the invitees from the role dropdown. You can assign different roles to different people by sending separate invitations.
+  </Step>
+  <Step title="Send the Invitation">
+    Click **Send Invitation**. Each recipient will receive an email with a link to join your workspace. The link expires after 7 days.
+  </Step>
+</Steps>
+
+<Note>
+  Pending invitations expire automatically after **7 days**. If a teammate misses the deadline, simply return to **Settings → Team**, find their pending entry, and click **Resend Invitation**.
+</Note>
+
+## Changing Member Roles
+
+You can update any member's role at any time without removing and re-inviting them.
+
+1. Navigate to **Settings → Team**.
+2. Find the member whose role you want to change.
+3. Click the **role badge** next to their name (e.g., the "Member" tag).
+4. Select the new role from the dropdown that appears.
+5. The change takes effect immediately — no save action is required.
+
+<Note>
+  Only the workspace Owner can assign or transfer the Owner role. Admins can manage all other roles.
+</Note>
+
+## Removing Members
+
+To remove a member from your workspace:
+
+1. Navigate to **Settings → Team**.
+2. Click the **⋯ menu** at the end of the member's row.
+3. Select **Remove from Workspace**.
+4. Confirm the action in the dialog that appears.
+
+When a member is removed, their account loses access to the workspace immediately. However, **all tasks previously assigned to them remain intact** and are re-assigned to "No Owner" so nothing falls through the cracks. You can reassign those tasks to another team member at any time.
+
+<Tip>
+  Before removing a member, consider reassigning their open tasks first to keep your projects moving without interruption.
+</Tip>
+
+## Bulk Actions
+
+When you need to make changes to several members at once, use bulk actions to save time.
+
+1. Navigate to **Settings → Team**.
+2. Check the **checkbox** to the left of each member you want to update. Select the checkbox in the column header to select all visible members.
+3. A bulk action toolbar will appear at the bottom of the screen.
+4. Choose **Change Role** to assign a new role to all selected members, or **Remove Members** to remove them all at once.
+5. Confirm your selection in the dialog.
+
+## Roles & Permissions
+
+Every workspace member is assigned one of four roles. Permissions are cumulative — higher roles include all the abilities of roles below them.
+
+| Role | Seats | Permissions |
+|---|---|---|
+| **Owner** | 1 per workspace | Full control over all workspace settings, billing, team, and data. Can delete the workspace. |
+| **Admin** | Unlimited | Can manage team members, projects, and integrations. Cannot delete the workspace or access billing. |
+| **Member** | Unlimited | Can create and fully manage their own projects and tasks. Can collaborate on projects they are added to. |
+| **Guest** | Unlimited | View-only or comment-only access to specific projects they are explicitly invited to. Cannot create projects. |
+
+<Warning>
+  Assigning the **Guest** role is ideal for external collaborators or clients. Guests can only see the projects you explicitly share with them — they cannot browse your workspace or access other projects.
+</Warning>

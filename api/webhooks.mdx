@@ -1,0 +1,279 @@
+---
+title: "Webhooks API: Receive Real-Time Event Notifications"
+sidebarTitle: "Webhooks"
+description: "Set up and manage Punto Diez webhooks to receive HTTP callbacks when projects, tasks, or team events occur in your workspace."
+---
+
+Webhooks let you subscribe to events in your Punto Diez workspace so that your external systems are notified the moment something changes — without polling the API. When an event fires, Punto Diez sends an HTTP `POST` request with a JSON payload to the URL you register. Use webhooks to trigger automations, keep data in sync, or build real-time dashboards.
+
+## Supported Events
+
+Punto Diez can deliver notifications for the following events:
+
+| Event | Description |
+|---|---|
+| `project.created` | A new project was created in the workspace. |
+| `project.updated` | A project's name, description, status, or settings were changed. |
+| `project.deleted` | A project was permanently deleted. |
+| `task.created` | A new task was added to a project. |
+| `task.updated` | A task's fields (title, assignee, due date, etc.) were changed. |
+| `task.completed` | A task was marked as complete. |
+| `task.deleted` | A task was permanently deleted. |
+| `member.invited` | A new member was invited to the workspace. |
+| `member.joined` | An invited member accepted their invitation and joined. |
+| `member.removed` | A member was removed from the workspace. |
+
+## Webhook Payload
+
+Every webhook delivery shares the same top-level structure, regardless of event type. The `data` field contains the resource object relevant to the event.
+
+```json
+{
+  "event": "task.completed",
+  "timestamp": "2024-06-20T14:35:00Z",
+  "workspace_id": "ws_123",
+  "data": {
+    "id": "task_789",
+    "name": "Write API documentation",
+    "project_id": "proj_abc123",
+    "assignee_id": "usr_001",
+    "status": "completed",
+    "completed_at": "2024-06-20T14:35:00Z"
+  }
+}
+```
+
+| Field | Description |
+|---|---|
+| `event` | The name of the event that triggered this delivery. |
+| `timestamp` | ISO 8601 UTC timestamp for when the event occurred. |
+| `workspace_id` | The workspace in which the event occurred. |
+| `data` | The full resource object associated with the event (project, task, or member). |
+
+---
+
+## POST /webhooks
+
+Register a new webhook endpoint to start receiving event notifications.
+
+<CodeGroup>
+```bash curl
+curl -X POST https://api.puntodiez.com/v1/webhooks \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://yourapp.com/webhooks/puntodiez",
+    "events": ["task.created", "task.completed", "project.updated"],
+    "workspace_id": "ws_123",
+    "secret": "your_signing_secret"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.puntodiez.com/v1/webhooks', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://yourapp.com/webhooks/puntodiez',
+    events: ['task.created', 'task.completed', 'project.updated'],
+    workspace_id: 'ws_123',
+    secret: 'your_signing_secret',
+  }),
+});
+
+const { data } = await response.json();
+console.log(data);
+```
+</CodeGroup>
+
+### Body Parameters
+
+<ParamField body="url" type="string" required>
+  The publicly accessible HTTPS URL where Punto Diez will send event payloads.
+</ParamField>
+
+<ParamField body="events" type="array" required>
+  An array of event names to subscribe to. See the [Supported Events](#supported-events) table for valid values. Pass `["*"]` to subscribe to all events.
+</ParamField>
+
+<ParamField body="workspace_id" type="string" required>
+  The ID of the workspace to attach this webhook to.
+</ParamField>
+
+<ParamField body="secret" type="string">
+  An optional signing secret used to generate the `X-Puntodiez-Signature` header on each delivery. Strongly recommended for production webhooks. See [Verifying Webhook Signatures](#verifying-webhook-signatures).
+</ParamField>
+
+### Response
+
+Returns the created webhook object with HTTP `201 Created`.
+
+```json
+{
+  "data": {
+    "id": "wh_xyz789",
+    "url": "https://yourapp.com/webhooks/puntodiez",
+    "events": ["task.created", "task.completed", "project.updated"],
+    "workspace_id": "ws_123",
+    "status": "active",
+    "created_at": "2024-06-21T10:00:00Z"
+  }
+}
+```
+
+<ResponseField name="data" type="object">
+  The newly created webhook object.
+
+  <Expandable title="Webhook object fields">
+    <ResponseField name="id" type="string">
+      Unique identifier for the webhook.
+    </ResponseField>
+    <ResponseField name="url" type="string">
+      The endpoint URL that receives event deliveries.
+    </ResponseField>
+    <ResponseField name="events" type="array">
+      The list of event names this webhook is subscribed to.
+    </ResponseField>
+    <ResponseField name="workspace_id" type="string">
+      The workspace this webhook belongs to.
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      Current status of the webhook. `active` means deliveries are enabled.
+    </ResponseField>
+    <ResponseField name="created_at" type="string">
+      ISO 8601 timestamp for when the webhook was created.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+---
+
+## GET /webhooks
+
+Retrieve a list of all webhooks registered in a workspace.
+
+<CodeGroup>
+```bash curl
+curl -G https://api.puntodiez.com/v1/webhooks \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d workspace_id=ws_123
+```
+
+```javascript JavaScript
+const params = new URLSearchParams({ workspace_id: 'ws_123' });
+
+const response = await fetch(`https://api.puntodiez.com/v1/webhooks?${params}`, {
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+  },
+});
+
+const { data } = await response.json();
+console.log(data);
+```
+</CodeGroup>
+
+### Query Parameters
+
+<ParamField query="workspace_id" type="string" required>
+  The ID of the workspace whose webhooks you want to list.
+</ParamField>
+
+### Response
+
+```json
+{
+  "data": [
+    {
+      "id": "wh_xyz789",
+      "url": "https://yourapp.com/webhooks/puntodiez",
+      "events": ["task.created", "task.completed", "project.updated"],
+      "workspace_id": "ws_123",
+      "status": "active",
+      "created_at": "2024-06-21T10:00:00Z"
+    },
+    {
+      "id": "wh_abc321",
+      "url": "https://yourapp.com/webhooks/members",
+      "events": ["member.invited", "member.joined", "member.removed"],
+      "workspace_id": "ws_123",
+      "status": "active",
+      "created_at": "2024-06-19T08:45:00Z"
+    }
+  ]
+}
+```
+
+---
+
+## DELETE /webhooks/{id}
+
+Delete a webhook. Punto Diez will immediately stop sending event deliveries to the registered URL.
+
+<CodeGroup>
+```bash curl
+curl -X DELETE https://api.puntodiez.com/v1/webhooks/wh_xyz789 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.puntodiez.com/v1/webhooks/wh_xyz789', {
+  method: 'DELETE',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+  },
+});
+
+if (response.status === 204) {
+  console.log('Webhook deleted successfully.');
+}
+```
+</CodeGroup>
+
+### Path Parameters
+
+<ParamField path="id" type="string" required>
+  The unique ID of the webhook to delete.
+</ParamField>
+
+A successful deletion returns HTTP `204 No Content` with an empty response body.
+
+---
+
+## Verifying Webhook Signatures
+
+When you provide a `secret` during webhook creation, Punto Diez includes an `X-Puntodiez-Signature` header with every delivery. The header value is an HMAC-SHA256 digest of the raw request body, prefixed with `sha256=`, computed using your signing secret.
+
+You should always verify this signature before processing a webhook payload. Skipping verification leaves your endpoint vulnerable to spoofed requests from bad actors.
+
+The verification algorithm works as follows:
+
+1. Read the raw request body as a string — do not parse it as JSON first.
+2. Compute `HMAC-SHA256(rawBody, secret)`.
+3. Prefix the hex digest with `sha256=`.
+4. Compare the result to the `X-Puntodiez-Signature` header using a constant-time comparison.
+
+Here's a Node.js implementation:
+
+```javascript
+const crypto = require('crypto');
+
+function verifySignature(payload, secret, signature) {
+  const hmac = crypto.createHmac('sha256', secret);
+  hmac.update(payload);
+  const expected = 'sha256=' + hmac.digest('hex');
+  return crypto.timingSafeEqual(
+    Buffer.from(expected),
+    Buffer.from(signature)
+  );
+}
+```
+
+Call `verifySignature` with the raw request body string, your webhook secret, and the value of the `X-Puntodiez-Signature` header. If it returns `false`, reject the request with a `400` status and do not process the payload.
+
+<Tip>
+  Always use `crypto.timingSafeEqual` (or an equivalent constant-time comparison function in your language) instead of a standard string equality check. Naive string comparison is vulnerable to timing attacks that can allow an attacker to forge a valid signature.
+</Tip>

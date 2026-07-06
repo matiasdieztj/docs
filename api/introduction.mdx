@@ -1,0 +1,102 @@
+---
+title: "Punto Diez REST API: Build Custom Integrations"
+sidebarTitle: "Introduction"
+description: "The Punto Diez REST API lets you programmatically manage projects, users, and tasks. Learn the base URL, rate limits, and response formats."
+---
+
+The Punto Diez REST API gives you programmatic access to everything inside your workspace — projects, tasks, users, and integrations. Whether you're building an internal tool, automating repetitive workflows, or connecting Punto Diez to your own systems, the API provides the building blocks you need.
+
+<Info>
+  You can generate and manage your API keys from **Settings → API Keys** inside your Punto Diez dashboard. See the [Authentication](/api/authentication) page for step-by-step instructions.
+</Info>
+
+## Base URL
+
+All API requests are made to the following base URL:
+
+```
+https://api.puntodiez.com/v1
+```
+
+Every endpoint in this reference is relative to this base URL. For example, the projects endpoint is available at `https://api.puntodiez.com/v1/projects`.
+
+## Request Format
+
+All requests must meet the following requirements:
+
+- **HTTPS only** — plain HTTP requests are rejected.
+- **JSON bodies** — send request bodies as JSON.
+- **Content-Type header** — include `Content-Type: application/json` on all requests that have a body.
+
+```bash
+curl -X POST https://api.puntodiez.com/v1/projects \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"workspace_id": "ws_123", "name": "Launch Campaign"}'
+```
+
+## Response Format
+
+All responses are returned as JSON. The structure differs slightly depending on whether the request succeeded or failed.
+
+**Success responses** wrap the returned resource in a `data` field:
+
+```json
+{
+  "data": {
+    "id": "proj_abc123",
+    "name": "Launch Campaign",
+    "status": "active",
+    "created_at": "2024-06-01T10:00:00Z"
+  }
+}
+```
+
+**Error responses** include an `error` object with a machine-readable `code` and a human-readable `message`:
+
+```json
+{
+  "error": {
+    "code": "resource_not_found",
+    "message": "No project with the ID 'proj_abc123' exists in this workspace."
+  }
+}
+```
+
+Use the HTTP status code for high-level error handling and `error.code` for programmatic branching on specific failure types.
+
+## Rate Limits
+
+The API enforces a limit of **1,000 requests per minute** per API key. Every response includes the following headers so you can monitor your usage:
+
+| Header | Description |
+|---|---|
+| `X-RateLimit-Limit` | Maximum number of requests allowed per minute. |
+| `X-RateLimit-Remaining` | Number of requests remaining in the current window. |
+| `X-RateLimit-Reset` | Unix timestamp (UTC) when the current window resets. |
+
+When you exceed the limit, the API returns a `429 Too Many Requests` response. Back off and retry once the `X-RateLimit-Reset` time has passed.
+
+## Pagination
+
+Endpoints that return lists support cursor-free, page-based pagination using the following query parameters:
+
+| Parameter | Type | Description |
+|---|---|---|
+| `page` | integer | The page number to retrieve. Defaults to `1`. |
+| `per_page` | integer | Number of results per page. Defaults to `20`, maximum `100`. |
+
+Paginated responses include a `meta` object alongside `data`:
+
+```json
+{
+  "data": [...],
+  "meta": {
+    "total": 84,
+    "page": 2,
+    "per_page": 20
+  }
+}
+```
+
+Use `meta.total` and `meta.per_page` together to calculate the total number of pages and determine when you've reached the end of a list.

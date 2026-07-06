@@ -1,0 +1,63 @@
+---
+title: "Core Concepts: How Punto Diez Is Organized"
+sidebarTitle: "Overview"
+description: "Understand the fundamental building blocks of Punto Diez: organizations, workspaces, projects, tasks, and members."
+---
+
+Punto Diez is built around a clear hierarchy of concepts that work together to give you full control over your workflows. Once you understand how organizations, workspaces, projects, tasks, and members relate to each other, navigating and configuring the platform becomes intuitive. This page walks you through each building block and explains how they fit into the bigger picture.
+
+## Organization
+
+An **organization** is the top-level container in Punto Diez — it represents your company, agency, or account. Everything in Punto Diez lives inside an organization. When you sign up, your first organization is created automatically. You can belong to multiple organizations (for example, if you work with external clients), and you switch between them from your account menu.
+
+Organizations own the subscription plan, billing details, and global settings that apply to all workspaces within them.
+
+## Workspace
+
+A **workspace** is a focused environment inside an organization. Think of it as a team, a product line, or a business unit — any logical grouping that benefits from its own set of projects and members. A single organization can contain many workspaces, each with independent visibility settings and member rosters.
+
+Workspaces let you keep the work of different teams separated without creating entirely separate accounts.
+
+## Project
+
+A **project** lives inside a workspace and brings together a collection of tasks working toward a shared goal. A workspace can have as many projects as you need — for example, a "Marketing" workspace might contain separate projects for a product launch, a blog calendar, and a social media campaign.
+
+Projects have their own settings, due dates, and views (list, board, timeline) so you can choose the format that best matches your workflow.
+
+## Task
+
+A **task** is the atomic unit of work in Punto Diez. Every piece of actionable work — a feature to build, a document to write, a bug to fix — lives as a task inside a project. Each task carries:
+
+- **Status** — e.g., To Do, In Progress, In Review, Done
+- **Assignee** — the member responsible for completing it
+- **Due date** — the target completion date
+- **Description and attachments** — context and supporting files
+
+Tasks can be broken into subtasks when a piece of work is large enough to warrant it.
+
+## Member
+
+A **member** is a user who has been invited to an organization or workspace and assigned a role. Roles control what a member can see and do:
+
+| Role    | Scope                          |
+|---------|-------------------------------|
+| Owner   | Organization-level full control, including billing |
+| Admin   | Manage members, workspaces, and projects |
+| Member  | Create and edit projects and tasks |
+| Guest   | View-only access to shared content |
+
+Members can hold different roles in different workspaces, giving you fine-grained control over permissions across your organization.
+
+## How They Fit Together
+
+<Info>
+  Punto Diez follows a strict parent-child hierarchy:
+
+  **Organization → Workspace → Project → Task**
+
+  An organization contains one or more workspaces. Each workspace contains one or more projects. Each project contains one or more tasks. Members are invited at the organization or workspace level and inherit permissions accordingly.
+</Info>
+
+<Tip>
+  **Multiple workspaces vs. multiple projects** — Use multiple workspaces when you need to separate teams or business units that have distinct member rosters or visibility requirements (e.g., "Engineering" and "Marketing"). Use multiple projects within a single workspace when the same team is working toward different goals that share the same members and settings. Keeping related work in one workspace makes cross-project reporting and collaboration much easier.
+</Tip>
